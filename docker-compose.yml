@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    container_name: udplatforms
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 8030:8030
+    env_file:
+      - .env
