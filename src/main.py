@@ -1,19 +1,15 @@
-import asyncio
 from aiohttp import web
 from aiohttp_middlewares import cors_middleware
 
 from middlewares import render
-from motor.motor_asyncio import AsyncIOMotorClient
-from configs import database
 from users.routes import user_routes
-
 
 app = web.Application(middlewares=[cors_middleware(allow_all=True), render])
 
 
 async def health_check(request):
     data = {
-        "message": "udplatform service",
+        "message": "udplatform assigment health check",
         "method": request.method
     }
 

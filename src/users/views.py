@@ -1,10 +1,9 @@
-import json
-
-from aiohttp.web_request import Request
 from aiohttp import web
+from aiohttp.web_request import Request
+from pony.orm import db_session, commit
+
 from users.models import User, Address
 from users.serializers import user_serializer
-from pony.orm import db_session, commit
 
 
 async def create(request: Request) -> web.Response:
@@ -36,14 +35,14 @@ async def create(request: Request) -> web.Response:
                         zip=zip_no,
                     )
             else:
-                return web.HTTPBadRequest(text='invalid request payload')
+                return web.HTTPBadRequest(text='Invalid request payload')
 
 
         elif user_type == User.Types.CHILD and parent_id:
             with db_session:
                 parent_user = User.get(id=parent_id)
                 if not parent_user:
-                    return web.HTTPNotFound(text="parent user not found")
+                    return web.HTTPNotFound(text="Parent user not found")
 
                 new_user = User(
                     first_name=first_name,
@@ -53,7 +52,7 @@ async def create(request: Request) -> web.Response:
                 )
                 commit()
     else:
-        return web.HTTPBadRequest(text='invalid request payload')
+        return web.HTTPBadRequest(text='Invalid request payload')
 
     response_data = dict()
     response_data['message'] = "User created successfully"
@@ -73,36 +72,39 @@ async def update(request: Request) -> web.Response:
     zip_no = body.get('zip')
     parent_id = body.get('parent_id')
 
-    # try:
-    if user_id:
-        with db_session:
-            user = User.get(id=user_id)
-            if not user:
-                return web.HTTPNotFound(text="user not found")
-            if first_name:
-                user.first_name = first_name
-            if last_name:
-                user.last_name = last_name
-            if parent_id and user.type == User.Types.CHILD:
-                user.parent = User.get(id=parent_id)
-            if user.type == User.Types.PARENT:
-                user_address: Address = user.address
-                if street:
-                    user_address.street = street
-                if city:
-                    user_address.city = city
-                if state:
-                    user_address.state = state
-                if zip_no:
-                    user_address.zip = zip_no
+    try:
+        if user_id:
+            with db_session:
+                user = User.get(id=user_id)
+                if not user:
+                    return web.HTTPNotFound(text="user not found")
+                if first_name:
+                    user.first_name = first_name
+                if last_name:
+                    user.last_name = last_name
+                if parent_id and user.type == User.Types.CHILD:
+                    user.parent = User.get(id=parent_id)
+                if user.type == User.Types.PARENT:
+                    user_address: Address = user.address
+                    if street:
+                        user_address.street = street
+                    if city:
+                        user_address.city = city
+                    if state:
+                        user_address.state = state
+                    if zip_no:
+                        user_address.zip = zip_no
 
-        response_data = dict()
-        response_data['message'] = "User updated successfully"
-        response_data['data'] = user_serializer(user)
-        print(user_serializer(user))
-        return web.json_response(data=response_data, status=200)
+            response_data = dict()
+            response_data['message'] = "User updated successfully"
+            response_data['data'] = user_serializer(user)
+            print(user_serializer(user))
+            return web.json_response(data=response_data, status=200)
 
-    return web.HTTPBadRequest(text="'user_id' is required")
+        return web.HTTPBadRequest(text="'user_id' is required")
+    except Exception as e:
+        print(e)
+        return web.HTTPBadRequest(text="Cannot update user")
 
 
 async def delete(request: Request) -> web.Response:
@@ -114,4 +116,7 @@ async def delete(request: Request) -> web.Response:
                 return web.HTTPNotFound(text="user not found")
 
             user.delete()
-            return web.json_response(data={"message": "user deleted successfully"}, status=204)
+            return web.json_response(data={"message": "User deleted successfully"}, status=200)
+
+    else:
+        return web.HTTPNotAcceptable(text='No user id provided')

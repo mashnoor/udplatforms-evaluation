@@ -1,6 +1,7 @@
 from users.models import User, Address
 from pony.orm import db_session
 
+
 @db_session
 def user_serializer(user: User) -> dict:
     data = dict()
@@ -18,6 +19,7 @@ def user_serializer(user: User) -> dict:
     data['type'] = user.type
 
     return data
+
 
 @db_session
 def address_serializer(address: Address) -> dict:
