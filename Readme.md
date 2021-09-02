@@ -89,7 +89,7 @@ curl --request POST \
 	"city" : "Dhaka",
 	"state" : "Dhaka",
 	"zip" : 1219
-}''
+}'
 ```
 
 **Response Example**
