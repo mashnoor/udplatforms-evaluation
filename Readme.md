@@ -2,6 +2,8 @@
 ## Nowfel Mashnoor
 ##### Phone: 01826636115, E-mail: nmmashnoor@gmail.com
 
+Hosted in: https://evaluation.mashnoor.com
+
 ## Description
 
 **Language:** Python
@@ -20,16 +22,18 @@ To run the project set all the environment to a `.env` file. To run the project 
 
 
 **From Source**
-```sh
+```sh=
+git clone https://github.com/mashnoor/udplatforms-evaluation.git
+cd udplatforms-evaluation
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+cd src/
 python main.py
 ```
 
 
-Then verify the deployment by navigating to your server address in
-your preferred browser.
+Then verify the deployment by navigating to:
 
 ```sh
 http://localhost:8030/
@@ -40,7 +44,11 @@ http://localhost:8030/
 
 ### Base Url:
 ```
-https://api-dev.evaly.com.bd/rate-limiter/api/v1
+https://evaluation.mashnoor.com/api
+
+or
+
+http://localhost:8030/api
 ```
 
 ## API USAGE
@@ -48,6 +56,11 @@ https://api-dev.evaly.com.bd/rate-limiter/api/v1
 ```http
 POST /v1/user
 ```
+**Headers**
+
+| Parameter | Value | 
+| :--- | :--- 
+| `Content-Type` | `application/json` | 
 **Request Body**
 
 **Type:** 
@@ -65,7 +78,24 @@ JSON
 | `parent_id` | `int` | **Required if user_type='child'** |
 **Note**: user_typer = ['parent', 'child']
 
-**Response**
+**Request example**
+```json=
+curl --request POST \
+  --url https://evaluation.mashnoor.com/api/v1/user \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"first_name":"dsds",
+	"last_name": "sdsdfs",
+	"user_type": "child",
+	"street": "Banasree",
+	"city" : "Dhaka",
+	"state" : "Dhaka",
+	"zip" : 1219,
+	"parent_id" : 2
+}''
+```
+
+**Response Example**
 ```json=
 {
   "success": true,
@@ -104,7 +134,22 @@ JSON
 | `parent_id` | `int` | **Optional** |
 
 
-**Response**
+**Request example**
+```json=
+curl --request PUT \
+  --url 'https://evaluation.mashnoor.com/api/v1/user?id=1' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"first_name":"dd",
+	"last_name": "Mashnoor",
+	"user_type": "parent",
+	"street": "Banasree",
+	"city" : "Dhaka",
+	"zip" : 1218
+}'
+```
+
+**Response Example**
 ```json=
 {
   "success": true,
@@ -128,7 +173,13 @@ JSON
 DELETE /v1/user?id=2
 ```
 
-**Response**
+**Request example**
+```json=
+curl --request DELETE \
+  --url 'https://evaluation.mashnoor.com/api/v1/user?id=1'
+```
+
+**Respons example**
 ```json=
 {
   "success": true,
