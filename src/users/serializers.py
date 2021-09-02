@@ -10,7 +10,6 @@ def user_serializer(user: User) -> dict:
     data['first_name'] = user.first_name
     data['last_name'] = user.last_name
     if user.type == User.Types.CHILD:
-        print(user.id)
         parent_user = User.get(id=user.parent.id)
         data['address'] = address_serializer(parent_user.address)
         data['parent'] = user_serializer(parent_user)

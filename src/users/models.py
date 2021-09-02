@@ -1,6 +1,4 @@
-from pony.orm import *
 from configs import *
-# db = Database()
 
 
 class User(db.Entity):
@@ -27,6 +25,4 @@ class Address(db.Entity):
     zip = Required(int)
 
 
-# db.bind(provider='sqlite', filename='udplatforms.sqlite', create_db=True)
-# db.generate_mapping(create_tables=True)
 db.generate_mapping(create_tables=True)

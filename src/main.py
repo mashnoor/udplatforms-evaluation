@@ -9,8 +9,7 @@ app = web.Application(middlewares=[cors_middleware(allow_all=True), render])
 
 async def health_check(request):
     data = {
-        "message": "udplatform assigment health check",
-        "method": request.method
+        "message": "udplatform assigment health ok",
     }
 
     return web.json_response(data=data, status=200)

@@ -12,14 +12,14 @@ Hosted in: https://evaluation.mashnoor.com
 
 ## Getting Started
 
-**Docker**
+**Using Docker**
 
 To run the project set all the environment to a `.env` file. To run the project locally you need to setup `docker` and `docker-compose`.
  Then simply do `docker-compose up --build` to run the project. 
 
 
 
-**From Source**
+**Using Source**
 ```sh=
 git clone https://github.com/mashnoor/udplatforms-evaluation.git
 cd udplatforms-evaluation
@@ -38,9 +38,7 @@ http://localhost:8030/
 ```
 
 
-
-
-### Base Url:
+### Base URL:
 ```
 https://evaluation.mashnoor.com/api
 
@@ -69,10 +67,10 @@ JSON
 | `first_name` | `string` | **Required** |
 | `last_name` | `string` | **Required** |
 | `user_type` | `string` | **Required** |
-| `street` | `int` | **Required** |
-| `city` | `string` | **Required** |
-| `state` | `string` | **Required** |
-| `zip` | `int` | **Required** |
+| `street` | `int` | **Optional if user_type='child'** |
+| `city` | `string` | **Optional if user_type='child'** |
+| `state` | `string` | **Optional if user_type='child'** |
+| `zip` | `int` | **Optional if user_type='child'** |
 | `parent_id` | `int` | **Required if user_type='child'** |
 **Note**: user_typer = ['parent', 'child']
 
@@ -84,12 +82,11 @@ curl --request POST \
   --data '{
 	"first_name":"dsds",
 	"last_name": "sdsdfs",
-	"user_type": "child",
+	"user_type": "parent",
 	"street": "Banasree",
 	"city" : "Dhaka",
 	"state" : "Dhaka",
-	"zip" : 1219,
-	"parent_id" : 2
+	"zip" : 1219
 }''
 ```
 
@@ -100,8 +97,8 @@ curl --request POST \
   "message": "User created successfully",
   "data": {
     "id": 4,
-    "first_name": "nowfel",
-    "last_name": "Mashnoor",
+    "first_name": "dsds",
+    "last_name": "sdsdfs",
     "address": {
       "street": "Banasree",
       "zip": 1219,
