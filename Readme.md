@@ -180,18 +180,7 @@ curl --request DELETE \
 ```json=
 {
   "success": true,
-  "message": "User updated successfully",
-  "data": {
-    "id": 8,
-    "first_name": "dd",
-    "last_name": "Mashnoor",
-    "address": {
-      "street": "Banasree",
-      "zip": 1218,
-      "city": "Dhaka",
-      "state": "Dhaka"
-    }
-  }
+  "message": "User deleted successfully"
 }
 ```
 
