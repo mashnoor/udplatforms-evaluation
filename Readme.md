@@ -1,6 +1,4 @@
 # UDPlatforms Assignment
-## Nowfel Mashnoor
-##### Phone: 01826636115, E-mail: nmmashnoor@gmail.com
 
 Hosted in: https://evaluation.mashnoor.com
 
