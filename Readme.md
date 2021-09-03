@@ -59,6 +59,7 @@ POST /v1/user
 | Parameter | Value | 
 | :--- | :--- 
 | `Content-Type` | `application/json` | 
+
 **Request Body**
 
 **Type:** 
@@ -74,6 +75,7 @@ JSON
 | `state` | `string` | **Optional if user_type='child'** |
 | `zip` | `int` | **Optional if user_type='child'** |
 | `parent_id` | `int` | **Required if user_type='child'** |
+
 **Note**: user_typer = ['parent', 'child']
 
 **Request example**
